@@ -39,7 +39,7 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)            
-            file.save(os.path.join(os.path.sep, os.getcwd()+os.path.sep+app.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join(os.path.sep, os.getcwd(),app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('download_file', name=filename))
     return render_template('upload.html')
 
@@ -49,7 +49,7 @@ def upload_file():
    
 @app.route('/upload/<name>')
 def download_file(name):
-    filepath = os.path.join(os.getcwd()+"\\"+app.config['UPLOAD_FOLDER'], name)
+    filepath = os.path.join(os.path.sep,os.getcwd(),app.config['UPLOAD_FOLDER'], name)
     #print(filepath)
 
     fhandle = open(r''+filepath+'', 'rb')
