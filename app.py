@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 import PyPDF2
 
 
-UPLOAD_FOLDER = '/uploads/'
+UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = { 'pdf'}
 
 
@@ -13,7 +13,9 @@ app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.secret_key = "super secret key"
 
-openai.api_key = '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'
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -37,7 +39,7 @@ def upload_file():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            file.save(os.path.join(os.path.sep,app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('download_file', name=filename))
     return render_template('upload.html')
 
