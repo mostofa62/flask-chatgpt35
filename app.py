@@ -5,7 +5,7 @@ from werkzeug.utils import secure_filename
 import PyPDF2
 
 
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = '/uploads/'
 ALLOWED_EXTENSIONS = { 'pdf'}
 
 
