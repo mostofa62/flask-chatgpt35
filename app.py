@@ -84,7 +84,7 @@ def chatgpt():
             model=model,
             messages = messages,
             temperature=0,
-            max_tokens=200,
+            max_tokens=int(os.getenv("OPENAI_TOKEN_LIMIT")),
         )
         result = response.choices[0].message["content"]
         return render_template("preview.html",result = result)
